@@ -1,0 +1,10 @@
+Deluxe Room  
+10
+Superior Room 
+10
+Reguler Room 
+10
+
+
+
+

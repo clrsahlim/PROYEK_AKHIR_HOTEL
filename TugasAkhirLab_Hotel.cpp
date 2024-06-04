@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <cctype>
+#include <vector>
 using namespace std;
 
 struct dataTanggal
@@ -93,54 +94,12 @@ void CheckIn (char kodeKamar)
 
     file1 << "-------------------------------------" << endl;
     file1.close();
-
-    ifstream file2("Check_Kamar.txt");
-    ofstream tempFile("temp.txt");
-    bool found = false;
-
-    while (file2 >> jenisKamar >> sisaKamar) {
-        if (jenisKamar == kamar) {
-            sisaKamar -= 1;
-            found = true;
-        }
-        tempFile << jenisKamar << " " << sisaKamar << endl;
-    }
-    file2.close();
-    tempFile.close();
-
-    if (!found) {
-        cout << "Jenis kamar tidak terdaftar";
-        remove("temp.txt");
-        return;
-    }
-
-    remove("Check_Kamar.txt");
-    rename("temp.txt", "Check_Kamar.txt");
-    cout << "Check-in berhasil. Sisa kamar untuk " << kamar << " adalah " << sisaKamar << endl;
 }
 
 
 int CheckKamar ()
 {
-    ifstream file("Check_Kamar.txt");
-    string nomorCS, nomorCSReal, namaCS;
 
-    cout << "Masukkan Nomor Customer Service (case-sensitive): ";
-    cin >> nomorCS;
-
-    bool found = false;
-    while (file >> nomorCSReal >> namaCS) 
-    {
-        if (nomorCSReal == nomorCS) {
-            cout << "Nama: " << namaCS << "\nKode: " << nomorCSReal << endl;
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
-        cout << "Nomor Customer Service Anda tidak terdaftar";
-    }
-    file.close();
 }
 
 

@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <cstring>
 #include <cctype>
 #include <vector>
+
 using namespace std;
 
 struct dataTanggal
@@ -11,7 +12,7 @@ struct dataTanggal
     int tanggal,bulan,tahun;
 };
 
-struct checkIn
+struct DataTamu
 {
     string nama, tipe, CS, responsibility;
     long long NIK;
@@ -19,19 +20,25 @@ struct checkIn
     dataTanggal tanggalCheckIn;
 };
 
+struct Room {
+    string tipe;
+    int availability;
+};
+
 void CustomerServiceInput () 
 {
     ifstream file("CustomerService_Data.txt");
     string nomorCS, nomorCSReal, namaCS;
 
-    cout << "Masukkan Nomor Customer Service (case-sensitive): ";
+    cout << "Masukkan ID Customer Service yang Aktif (Anda) : ";
     cin >> nomorCS;
 
     bool found = false;
     while (file >> nomorCSReal >> namaCS) 
     {
         if (nomorCSReal == nomorCS) {
-            cout << "Nama: " << namaCS << "\nKode: " << nomorCSReal << endl;
+            system ("cls");
+            cout << "Nama : " << namaCS << "\nKode : " << nomorCSReal << endl << endl;
             found = true;
             break;
         }
@@ -42,7 +49,7 @@ void CustomerServiceInput ()
     file.close();
 }
 
-void Cetak_Keterangan_Kamar(char kodeKamar) 
+void CetakKeteranganKamar(char kodeKamar) 
 {
     string kamar,fileData_Kamar;
     ifstream file;
@@ -61,22 +68,23 @@ void Cetak_Keterangan_Kamar(char kodeKamar)
     string fileContents = buffer.str();
 
     file.close();
-    cout << fileContents << endl <<endl; // Menampilkan isi file ke layar
+    system ("cls");
+    cout << fileContents << endl; 
 }
  
 void CheckIn (char kodeKamar) 
 {
-    checkIn data;
+    DataTamu data;
     char slash1,slash2;
-    string namaFile,kamar,jenisKamar;
-    int sisaKamar;
+    string namaFile,kamar,tipeKamar,tipe;
+    int availability;
 
-    if (kodeKamar == 'd')
-    {namaFile = "Check_In_D.txt"; kamar = "Deluxe Room";}
-    else if (kodeKamar == 's')
-    {namaFile = "Check_In_S.txt"; kamar = "Superior Room";}
-    else if (kodeKamar == 'r')
-    {namaFile = "Check_In_R.txt"; kamar = "Reguler Room";}
+    if (kodeKamar == 'd'){
+        namaFile = "Check_In_D.txt"; tipeKamar = "Deluxe Room";}
+    else if (kodeKamar == 's'){
+        namaFile = "Check_In_S.txt"; tipeKamar = "Superior Room";}
+    else if (kodeKamar == 'r'){
+        namaFile = "Check_In_R.txt"; tipeKamar = "Reguler Room";}
 
     ofstream file1 (namaFile, ios::app);
     cout << "Silahkan Memasukkan Data untuk Check-In\n";
@@ -94,34 +102,92 @@ void CheckIn (char kodeKamar)
 
     file1 << "-------------------------------------" << endl;
     file1.close();
+
+    ifstream file2 ("Check_Kamar.txt");
+    vector<Room> rooms;
+
+    while (getline(file2,tipe) && file2 >> availability) {
+        file2.ignore();
+        rooms.push_back({tipe, availability});
+    }
+    file2.close();
+    
+    bool roomFound = false;
+    for (auto& room : rooms) {
+        if (room.tipe == tipeKamar){
+        room.availability -= 1;
+        roomFound = true;
+        break;
+        }
+    }
+
+    ofstream outFile("Check_Kamar.txt");
+    for (const auto& room : rooms) {
+        outFile << room.tipe << endl;
+        outFile << room.availability << endl;
+    }
+    outFile.close();
 }
 
-
-int CheckKamar ()
+void CheckKamar (const string& namaFile)
 {
+    ifstream file (namaFile);
+    vector <Room> rooms;
+    string tipeKamar;
+    int availability;
 
+    while (getline (file, tipeKamar) && file >> availability){
+        file.ignore ();
+        rooms.push_back({tipeKamar, availability});
+    }
+    file.close();
+
+    bool roomFound = false;
+    cout << "\n#Room Availability#\n\n";
+    for (auto& room : rooms) {
+        if (room.tipe == "Deluxe Room")
+            cout << "-> " << room.tipe << "    [" << room.availability  << "]" << "  <Rp. 700.000,00" << endl;
+        else if (room.tipe == "Superior Room")
+            cout << "-> " << room.tipe << "  [" << room.availability  << "]" << "  <Rp. 600.000,00" << endl;
+        else if (room.tipe == "Reguler Room")
+            cout << "-> " << room.tipe << "   [" << room.availability  << "]" << "   <Rp. 400.000,00" << endl;  
+        }
+    cout << "=*=Push Any Button to Continue=*=";
 }
 
 
 int main() 
 {
+    system("cls");
     char kodeKamar;
+    string kegiatan;
 
     CustomerServiceInput();
+    getchar();
 
-    cout << "Masukkan kode kamar: ";
-    cin >> kodeKamar;
-    kodeKamar = tolower(kodeKamar);
-    
-    if (kodeKamar == 'd' || kodeKamar == 'r' || kodeKamar == 's')
-    {
-    Cetak_Keterangan_Kamar(kodeKamar);
-    CheckIn(kodeKamar);
+    cout << "Input Kegiatan [Check In, Check Out, Check Room, or Quit] : ";
+    getline (cin,kegiatan);
+
+    for (char &c : kegiatan) {
+        c = std::tolower(c);
     }
 
-    else 
-    cout << "Kode Kamar tidak valid";
+    if (kegiatan == "check in")
+    {
+        cout << "Which Room to Reserve? [Deluxe(D)/Reguler(R)/Superior(S)]: ";
+        cin >> kodeKamar;
+        kodeKamar = tolower(kodeKamar);
+        if (kodeKamar == 'd' || kodeKamar == 'r' || kodeKamar == 's')
+        {
+            CetakKeteranganKamar(kodeKamar);
+            CheckIn(kodeKamar);
+        }
+        else 
+        cout << "Kode Kamar tidak valid";
+    }
+    
+    else if (kegiatan == "check room") 
+    CheckKamar("Check_Kamar.txt");
 
     return 0;
-
 }

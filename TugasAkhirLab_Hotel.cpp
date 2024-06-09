@@ -12,11 +12,11 @@ struct dataTanggal
     int tanggal,bulan,tahun;
 };
 
-struct DataTamu
+struct dataCheckIn
 {
     string nama, tipe, CS, responsibility;
     long long NIK;
-    int NomorKamar, Bed;
+    int NomorKamar, bed, jumlahKamar;
     dataTanggal tanggalCheckIn;
 };
 
@@ -74,20 +74,29 @@ void CetakKeteranganKamar(char kodeKamar)
  
 void CheckIn (char kodeKamar) 
 {
-    DataTamu data;
+    dataCheckIn data;
     char slash1,slash2;
-    string namaFile,kamar,tipeKamar,tipe;
+    string namaFile,kamar,tipeKamar,tipe,jawaban;
     int availability;
+    long long harga;
 
     if (kodeKamar == 'd'){
-        namaFile = "Check_In_D.txt"; tipeKamar = "Deluxe Room";}
+        namaFile = "Check_In_D.txt"; 
+        tipeKamar = "Deluxe Room";
+        harga = 700000;
+    }
     else if (kodeKamar == 's'){
-        namaFile = "Check_In_S.txt"; tipeKamar = "Superior Room";}
+        namaFile = "Check_In_S.txt"; 
+        tipeKamar = "Superior Room";
+        harga = 600000;
+    }
     else if (kodeKamar == 'r'){
-        namaFile = "Check_In_R.txt"; tipeKamar = "Reguler Room";}
+        namaFile = "Check_In_R.txt"; 
+        tipeKamar = "Reguler Room";
+        harga = 400000;
+    }
 
-    ofstream file1 (namaFile, ios::app);
-    cout << "Silahkan Memasukkan Data untuk Check-In\n";
+    cout << "*Silahkan Memasukkan Data Tamu untuk Check-In*\n";
     getchar();
     cout << "Nama                 : ";
     getline (cin, data.nama);
@@ -95,10 +104,29 @@ void CheckIn (char kodeKamar)
     cin  >> data.tanggalCheckIn.tanggal >> slash1 >> data.tanggalCheckIn.bulan >> slash2 >> data.tanggalCheckIn.tahun;
     cout << "NIK                  : ";
     cin  >> data.NIK;
+    cout << "\n*Silahkan Memasukkan Data Kamar*\n";
+    cout << "Jumlah Kamar " << tipeKamar << " yang dipesan : ";
+    cin  >> data.jumlahKamar;
+    cout << "Extra Bed : ";
+    cin  >> data.bed;
+    cout << "Harga Kamar              : " << "Rp. " << harga*data.jumlahKamar << ",00" << endl;
+    cout << "Harga Extra Bed          : " << "Rp. " << 150000 * data.bed << ",00" << endl;
+    cout << "Uang Deposit Hotel (50%) : " << "Rp. " << harga*data.jumlahKamar/2 << ",00" << endl;
+    cout << "Harga Total              : " << "Rp. " << harga*data.jumlahKamar*3/2 +  150000 * data.bed  << ",00" << endl;
+    cout << "Jika Pembayaran Sudah Berhasil, tekan Enter "; getline(cin, jawaban); getchar();
+    if (jawaban.empty()){
+        cout << "Nomor Kamar Anda : \n";
+        cout << "Selamat Menikmati!";
+    }
+    else {
+        cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
+    }
 
-    file1 << "Nama : "<< data.nama << endl;
+    ofstream file1 (namaFile, ios::app);
+    file1 << "Nama : " << data.nama << endl;
     file1 << "Tanggal Check-In (dd/mm/yyyy) : "<< data.tanggalCheckIn.tanggal << "/" << data.tanggalCheckIn.bulan << "/" << data.tanggalCheckIn.tahun << endl;
-    file1 << "NIK : "<< data.NIK << endl;
+    file1 << "NIK  : " << data.NIK << endl;
+    file1 << "Harga Kamar : " << harga*data.jumlahKamar;
 
     file1 << "-------------------------------------" << endl;
     file1.close();
@@ -115,7 +143,7 @@ void CheckIn (char kodeKamar)
     bool roomFound = false;
     for (auto& room : rooms) {
         if (room.tipe == tipeKamar){
-        room.availability -= 1;
+        room.availability -= data.jumlahKamar;
         roomFound = true;
         break;
         }
@@ -127,6 +155,7 @@ void CheckIn (char kodeKamar)
         outFile << room.availability << endl;
     }
     outFile.close();
+
 }
 
 void CheckKamar (const string& namaFile)
@@ -161,12 +190,15 @@ int main()
     system("cls");
     char kodeKamar;
     string kegiatan;
+    int ulang;
 
     CustomerServiceInput();
     getchar();
 
+    do {
     cout << "Input Kegiatan [Check In, Check Out, Check Room, or Quit] : ";
     getline (cin,kegiatan);
+
 
     for (char &c : kegiatan) {
         c = std::tolower(c);
@@ -182,12 +214,26 @@ int main()
             CetakKeteranganKamar(kodeKamar);
             CheckIn(kodeKamar);
         }
+
         else 
         cout << "Kode Kamar tidak valid";
     }
     
     else if (kegiatan == "check room") 
     CheckKamar("Check_Kamar.txt");
+
+    else if (kegiatan == "quit") {
+        cout << "Terima kasih, sampai jumpa!" << endl;
+        ulang = 0;
+    } 
+
+    else {
+        cout << "Kegiatan Anda Tidak Terdaftar dalam Sistem. Mohon Input Ulang!\n";
+        getchar();
+        ulang = 1;
+    }
+    }
+    while (ulang != 0);
 
     return 0;
 }

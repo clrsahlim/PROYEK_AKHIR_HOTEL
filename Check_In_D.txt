@@ -8,3 +8,11 @@ Nama : clar
 Tanggal Check-In (dd/mm/yyyy) : 23/14/2003
 NIK : 23
 -------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/4/2003
+NIK  : 6439824014
+Harga Kamar : 700000-------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/3/2004
+NIK  : 3456798654321
+Harga Kamar : 700000-------------------------------------

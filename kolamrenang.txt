@@ -1,15 +1,5 @@
-Fasilitas Kolam Renang: Kolam Renang Anak
-Jumlah Jam: 2
-Total Harga: Rp. 60000
--------------------------------------
-Fasilitas Kolam Renang: Kolam Renang Anak(Outdoor)
-Jumlah Jam: 2
-Total Harga: Rp. 110000
--------------------------------------
-Fasilitas Kolam Renang: Kolam Renang Anak(Outdoor)
-Jumlah Jam: 2
-Total Harga: Rp. 110000
--------------------------------------
+𝙍𝙄𝙉𝘾𝙄𝘼𝙉 𝘽𝙄𝘼𝙔𝘼 𝙆𝙊𝙇𝘼𝙈 𝙍𝙀𝙉𝘼𝙉𝙂 
+
 Fasilitas Kolam Renang: Kolam Renang Anak(Outdoor)
 Jumlah Jam: 2.5
 Total Harga: Rp. 137500

@@ -16,3 +16,15 @@ Nama : Susan
 Tanggal Check-In (dd/mm/yyyy) : 12/3/2004
 NIK  : 3456798654321
 Harga Kamar : 700000-------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/3/2005
+NIK  : 324567897654321
+Harga Kamar : 700000-------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/3/2005
+NIK  : 213456754321
+Harga Kamar : 700000-------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/3/2004
+NIK  : 2134567865432
+Harga Kamar : 700000-------------------------------------

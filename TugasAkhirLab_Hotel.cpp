@@ -4,7 +4,6 @@
 #include <cstring>
 #include <cctype>
 #include <vector>
-//test
 
 using namespace std;
 
@@ -30,7 +29,7 @@ struct Room
 struct SwimmingPool
 {
     string tipe;
-    int durasi; // in hours
+    float durasi; // in hours
     long long biaya;
 };
 
@@ -93,9 +92,9 @@ void PilihKolamRenang()
     };
 
     vector<FasilitasKolamRenang> fasilitas = {
-        {"Kolam Renang Reguler", 50000},
-        {"Kolam Renang Anak", 30000},
-        {"Kolam Renang VIP", 100000}};
+        {"Kolam Renang Reguler(Outdoor)", 85000},
+        {"Kolam Renang Anak(Outdoor)", 55000},
+        {"Kolam Renang VIP (Indoor)", 112000}};
 
     cout << "Pilih fasilitas kolam renang:\n";
     for (size_t i = 0; i < fasilitas.size(); ++i)
@@ -109,7 +108,7 @@ void PilihKolamRenang()
 
     if (pilihan >= 1 && pilihan <= static_cast<int>(fasilitas.size()))
     {
-        int jam;
+        float jam;
         cout << "Masukkan jumlah jam penggunaan: ";
         cin >> jam;
 
@@ -189,23 +188,8 @@ void CheckIn(char kodeKamar)
         cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
     }
 
-    char pilihanKolam;
-    cout << "Apakah Anda ingin menggunakan fasilitas kolam renang? [Y/N]: ";
-    cin >> pilihanKolam;
-    pilihanKolam = tolower(pilihanKolam);
+ 
 
-    if (pilihanKolam == 'y')
-    {
-        PilihKolamRenang();
-    }
-    else if (pilihanKolam == 'n')
-    {
-        cout << "Anda tidak memilih fasilitas kolam renang.\n";
-    }
-    else
-    {
-        cout << "Pilihan tidak valid.\n";
-    }
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;
@@ -312,9 +296,10 @@ int main()
         CheckKamar("Check_Kamar.txt");
     }
     else if (kegiatan == "swim")
-    {
-        PilihKolamRenang();
-    }
+{
+    PilihKolamRenang();
+}
+  
     else if (kegiatan == "quit")
     {
         cout << "Terima kasih telah menggunakan layanan kami." << endl;

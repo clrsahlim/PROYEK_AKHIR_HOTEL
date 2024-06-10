@@ -7,6 +7,8 @@
 
 using namespace std;
 
+char ulang='y',ulng='y';
+
 struct dataTanggal {
     int tanggal, bulan, tahun;
 };
@@ -75,7 +77,9 @@ void CustomerServiceInput() {
 
     cout << "Masukkan ID Customer Service yang Aktif (Anda) : ";
     cin >> nomorCS;
-
+    if(nomorCS=="quit"){
+        ulang='n';ulng='n';
+    }
     bool found = false;
     while (file >> nomorCSReal >> namaCS) {
         if (nomorCSReal == nomorCS) {
@@ -317,10 +321,12 @@ int main() {
     menu.addItem({"Ayam Goreng", 30000});
     menu.addItem({"Es Teh", 5000});
     menu.addItem({"Es Jeruk", 7000});
-
-    CustomerServiceInput();
+    while (ulang=='y')
+    {CustomerServiceInput();
     getchar();
 
+        while (ulng=='y')
+        {
     cout << "Input Kegiatan [Check In, Check Out, Check Room, Swim, Extra menu food and drink, or Quit] : ";
     getline(cin, kegiatan);
 
@@ -351,11 +357,16 @@ int main() {
         file << "-------------------------------------\n";
         file.close();
     } else if (kegiatan == "quit") {
-        cout << "Terima kasih telah menggunakan layanan kami." << endl;
+        cout << "Terima kasih telah menggunakan layanan kami." << endl;ulng='n';
         return 0;
     } else {
         cout << "Kegiatan tidak valid. Silakan coba lagi." << endl;
+    }        }
+        
     }
+    
+    
+    
 
     return 0;
 }

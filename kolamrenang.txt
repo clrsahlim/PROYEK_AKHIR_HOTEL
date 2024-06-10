@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Fasilitas Kolam Renang: Kolam Renang VIP (Indoor)
 Jumlah Jam: 5
 Jumlah Orang: 5
@@ -5,4 +6,28 @@ Biaya Kolam Renang: Rp. 2800000
 Menggunakan Pelampung: Ya
 Biaya Pelampung: Rp. 100000
 Total Biaya: Rp. 2900000
+=======
+𝙍𝙄𝙉𝘾𝙄𝘼𝙉 𝘽𝙄𝘼𝙔𝘼 𝙆𝙊𝙇𝘼𝙈 𝙍𝙀𝙉𝘼𝙉𝙂 
+
+Fasilitas Kolam Renang: Kolam Renang Reguler (Outdoor)
+Jumlah Jam: 1
+Biaya Kolam Renang: Rp. 85000
+Menggunakan Pelampung: Ya
+Biaya Pelampung: Rp. 15000
+Total Biaya: Rp. 100000
+-------------------------------------
+Fasilitas Kolam Renang: Kolam Renang Reguler (Outdoor)
+Jumlah Jam: 1
+Jumlah Orang: 2
+Biaya Kolam Renang: Rp. 170000
+Total Biaya: Rp. 170000
+-------------------------------------
+Fasilitas Kolam Renang: Kolam Renang Anak (Outdoor)
+Jumlah Jam: 1
+Jumlah Orang: 2
+Biaya Kolam Renang: Rp. 110000
+Menggunakan Pelampung: Ya
+Biaya Pelampung: Rp. 20000
+Total Biaya: Rp. 130000
+>>>>>>> 65473b278a9d69d09d18e78f92dde0e4f3fe40a8
 -------------------------------------

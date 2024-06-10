@@ -76,7 +76,9 @@ void CetakKeteranganKamar(char kodeKamar) {
     file.close();
 }
 
+
 void PilihKolamRenang() {
+    system("cls");
     vector<FasilitasKolamRenang> fasilitas = {
         {"Kolam Renang Reguler (Outdoor)", 85000, true, 15000},
         {"Kolam Renang Anak (Outdoor)", 55000, true, 10000},
@@ -85,10 +87,7 @@ void PilihKolamRenang() {
 
     cout << "Pilih fasilitas kolam renang:\n";
     for (size_t i = 0; i < fasilitas.size(); ++i) {
-        cout << i + 1 << "." << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam";
-        if (fasilitas[i].hasPelampung) {
-            cout << " (Pelampung tersedia - Rp. " << fasilitas[i].hargaPelampung << ")";
-        }
+        cout << i + 1 << ". " << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam";
         cout << endl;
     }
 
@@ -102,8 +101,10 @@ void PilihKolamRenang() {
         cin >> jam;
 
         int totalHargaKolam = fasilitas[pilihan - 1].hargaPerJam * jam;
-        int totalHargaPelampung = 0;
+
         bool inginPelampung = false;
+        int totalHargaPelampung = 0;
+
         if (fasilitas[pilihan - 1].hasPelampung) {
             char pelampungPilihan;
             cout << "Apakah Anda ingin menggunakan pelampung? (y/n): ";

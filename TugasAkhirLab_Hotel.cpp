@@ -30,6 +30,45 @@ struct FasilitasKolamRenang {
     int hargaPelampung;
 };
 
+struct MenuItem {
+    string nama;
+    int harga;
+};
+
+class Menu {
+public:
+    void addItem(const MenuItem& item) {
+        items.push_back(item);
+    }
+
+    void displayMenu() {
+        cout << "Menu Makanan dan Minuman:\n";
+        for (size_t i = 0; i < items.size(); ++i) {
+            cout << i + 1 << ". " << items[i].nama << " - Rp. " << items[i].harga << "\n";
+        }
+    }
+
+    int selectItems() {
+        int pilihan, jumlah, totalHarga = 0;
+        while (true) {
+            cout << "Masukkan nomor item (0 untuk selesai): ";
+            cin >> pilihan;
+            if (pilihan == 0) break;
+            if (pilihan > 0 && pilihan <= items.size()) {
+                cout << "Masukkan jumlah: ";
+                cin >> jumlah;
+                totalHarga += items[pilihan - 1].harga * jumlah;
+            } else {
+                cout << "Pilihan tidak valid.\n";
+            }
+        }
+        return totalHarga;
+    }
+
+private:
+    vector<MenuItem> items;
+};
+
 void CustomerServiceInput() {
     ifstream file("CustomerService_Data.txt");
     string nomorCS, nomorCSReal, namaCS;
@@ -90,15 +129,15 @@ void PilihKolamRenang() {
     }
 
     int pilihan, jumlah_orang;
-    float jam; 
+    float jam;
     cout << "Masukkan pilihan Anda (1-" << fasilitas.size() << "): ";
     cin >> pilihan;
 
     cout << "Masukkan jumlah orang: ";
-    cin >> jumlah_orang; 
+    cin >> jumlah_orang;
 
     cout << "Masukkan total jam yang diinginkan: ";
-    cin >> jam; 
+    cin >> jam;
 
     if (pilihan >= 1 && pilihan <= fasilitas.size()) {
         int totalHargaKolam = fasilitas[pilihan - 1].hargaPerJam * jam * jumlah_orang;
@@ -106,11 +145,11 @@ void PilihKolamRenang() {
         bool inginPelampung = false;
         int totalHargaPelampung = 0;
 
-cout<<endl; 
-    cout<<"Harga extra perlengkapan berenang\n"; 
-    cout<<"1. Pelampung Reguler      = Rp. 15.000"<<endl; 
-    cout<<"2. Pelampung Anak         = Rp. 10.000"<<endl; 
-    cout<<"3. Pelampung (khusus VIP) = Rp. 20.000"<<endl; 
+        cout << endl;
+        cout << "Harga extra perlengkapan berenang\n";
+        cout << "1. Pelampung Reguler      = Rp. 15.000" << endl;
+        cout << "2. Pelampung Anak         = Rp. 10.000" << endl;
+        cout << "3. Pelampung (khusus VIP) = Rp. 20.000" << endl;
 
         if (fasilitas[pilihan - 1].hasPelampung) {
             char pelampungPilihan;
@@ -144,28 +183,24 @@ cout<<endl;
     }
 }
 
-void CheckIn(char kodeKamar)
-{
+void CheckIn(char kodeKamar) {
     dataCheckIn data;
     char slash1, slash2;
-    string namaFile, kamar, tipeKamar, tipe, jawaban;
+    string namaFile, tipeKamar, tipe, jawaban;
     int availability;
     long long harga;
 
-    if (kodeKamar == 'd')
-    {
+    if (kodeKamar == 'd') {
         namaFile = "Check_In_D.txt";
         tipeKamar = "Deluxe Room";
         harga = 700000;
     }
-    else if (kodeKamar == 's')
-    {
+    else if (kodeKamar == 's') {
         namaFile = "Check_In_S.txt";
         tipeKamar = "Superior Room";
         harga = 600000;
     }
-    else if (kodeKamar == 'r')
-    {
+    else if (kodeKamar == 'r') {
         namaFile = "Check_In_R.txt";
         tipeKamar = "Reguler Room";
         harga = 400000;
@@ -195,13 +230,11 @@ void CheckIn(char kodeKamar)
     cout << "Jika Pembayaran Sudah Berhasil, tekan Enter ";
     getline(cin, jawaban);
     getchar();
-    if (jawaban.empty())
-    {
+    if (jawaban.empty()) {
         cout << "Nomor Kamar Anda : \n";
         cout << "Selamat Menikmati!";
     }
-    else
-    {
+    else {
         cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
     }
 
@@ -244,7 +277,7 @@ void CheckIn(char kodeKamar)
 
 void CheckKamar(const string &namaFile)
 {
-    ifstream file(namaFile);
+    ifstream file("check_Kamar.txt");
     vector<Room> rooms;
     string tipeKamar;
     int availability;
@@ -273,54 +306,54 @@ void CheckKamar(const string &namaFile)
 }
 
 //Badan pemrograman utama
-int main()
-{
+int main() {
     system("cls");
     char kodeKamar;
     string kegiatan;
+    Menu menu;
+
+    menu.addItem({"Nasi Goreng", 25000});
+    menu.addItem({"Mie Goreng", 20000});
+    menu.addItem({"Ayam Goreng", 30000});
+    menu.addItem({"Es Teh", 5000});
+    menu.addItem({"Es Jeruk", 7000});
 
     CustomerServiceInput();
     getchar();
 
-    cout << "Input Kegiatan [Check In, Check Out, Check Room, Swim, or Quit] : ";
+    cout << "Input Kegiatan [Check In, Check Out, Check Room, Swim, Extra menu food and drink, or Quit] : ";
     getline(cin, kegiatan);
 
-    for (char &c : kegiatan)
-    {
+    for (char &c : kegiatan) {
         c = tolower(c);
     }
 
-    if (kegiatan == "check in")
-    {
+    if (kegiatan == "check in") {
         cout << "Which Room to Reserve? [Deluxe(D)/Reguler(R)/Superior(S)]: ";
         cin >> kodeKamar;
         kodeKamar = tolower(kodeKamar);
-        if (kodeKamar == 'd' || kodeKamar == 'r' || kodeKamar == 's')
-        {
+        if (kodeKamar == 'd' || kodeKamar == 'r' || kodeKamar == 's') {
             CetakKeteranganKamar(kodeKamar);
             CheckIn(kodeKamar);
-        }
-        else
-        {
+        } else {
             cout << "Kode Kamar tidak valid";
         }
-    }
-    else if (kegiatan == "check room")
-    {
+    } else if (kegiatan == "check room") {
         CheckKamar("Check_Kamar.txt");
-    }
-    else if (kegiatan == "swim")
-{
-    PilihKolamRenang();
-}
-  
-    else if (kegiatan == "quit")
-    {
+    } else if (kegiatan == "swim") {
+        PilihKolamRenang();
+    } else if (kegiatan == "food and drink menu") {
+        menu.displayMenu();
+        int totalHarga = menu.selectItems();
+        cout << "Total harga untuk pesanan Anda adalah: Rp. " << totalHarga << endl;
+        ofstream file("pesanan_menu.txt", ios::app);
+        file << "Total Harga Pesanan: Rp. " << totalHarga << "\n";
+        file << "-------------------------------------\n";
+        file.close();
+    } else if (kegiatan == "quit") {
         cout << "Terima kasih telah menggunakan layanan kami." << endl;
         return 0;
-    }
-    else
-    {
+    } else {
         cout << "Kegiatan tidak valid. Silakan coba lagi." << endl;
     }
 

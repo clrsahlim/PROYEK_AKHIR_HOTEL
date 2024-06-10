@@ -130,6 +130,14 @@ void PilihKolamRenang() {
         file.close();
 
         cout << "Anda telah memilih " << fasilitas[pilihan - 1].nama << " untuk " << jam << " jam dengan total harga Rp. " << totalHargaKolam << ".\n";
+
+//list untuk harga pelampung tambahan jika pemesanan kolam renang 
+    cout<<endl; 
+    cout<<"Harga extra perlengkapan berenang\n"; 
+    cout<<"1. Pelampung Reguler      = Rp. 15.000"<<endl; 
+    cout<<"2. Pelampung Anak         = Rp. 10.000"<<endl; 
+    cout<<"3. Pelampung (khusus VIP) = Rp. 20.000"<<endl; 
+
         if (inginPelampung) {
             cout << "Anda juga menggunakan pelampung dengan biaya tambahan Rp. " << totalHargaPelampung << ".\n";
         }

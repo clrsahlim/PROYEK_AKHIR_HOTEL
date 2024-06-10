@@ -5,9 +5,9 @@ Jumlah Jam: 2.5
 Total Harga: Rp. 137500
 -------------------------------------
 Fasilitas Kolam Renang: Kolam Renang Reguler (Outdoor)
-Jumlah Jam: 2
-Biaya Kolam Renang: Rp. 170000
+Jumlah Jam: 1
+Biaya Kolam Renang: Rp. 85000
 Menggunakan Pelampung: Ya
 Biaya Pelampung: Rp. 15000
-Total Biaya: Rp. 185000
+Total Biaya: Rp. 100000
 -------------------------------------

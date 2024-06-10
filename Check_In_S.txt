@@ -1,4 +1,8 @@
 SUPERIOR CHECK-IN DATA :
+<<<<<<< HEAD
+
+
+=======
 Nama : Susan
 Tanggal Check-In (dd/mm/yyyy) : 12/3/20000
 NIK  : 23567809876543
@@ -7,3 +11,14 @@ Nama : Susan
 Tanggal Check-In (dd/mm/yyyy) : 12/4/2005
 NIK  : 2134787987654322
 Harga Kamar : 600000-------------------------------------
+>>>>>>> 65473b278a9d69d09d18e78f92dde0e4f3fe40a8
+Nama : cl
+Tanggal Check-In (dd/mm/yyyy) : 23/23/3
+NIK  : 23
+Harga Kamar : 1800000-------------------------------------
+Nama : cl
+Tanggal Check-In (dd/mm/yyyy) : 23/23/34
+NIK  : 24
+Harga Kamar : Rp. 2100000,00
+Nomor Kamar : 106 107 
+-------------------------------------

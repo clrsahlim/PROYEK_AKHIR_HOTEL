@@ -259,8 +259,26 @@ void CheckIn(char kodeKamar) {
             for (i = 0 ; i < data.jumlahKamar ; i++){
             nomorKamar [i] = 100 + room.availability;
             room.availability -= 1;
+<<<<<<< HEAD
+=======
+        }
+>>>>>>> e1c2c19c058a057543a717bc8ab183a98ced9f44
         }
         }
+    }
+
+    cout << "Jika Pembayaran Sudah Berhasil, tekan Enter ";
+    getline(cin, jawaban);
+    getchar();
+
+    if (jawaban.empty()) {
+        cout << "Nomor Kamar Anda : ";
+        for (i = data.jumlahKamar-1 ; i >= 0 ; i--)
+        cout << nomorKamar [i] << " ";
+        cout << "\nSelamat Menikmati!";
+    }
+    else {
+        cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
     }
 
     cout << "Jika Pembayaran Sudah Berhasil, tekan Enter ";
@@ -287,8 +305,12 @@ void CheckIn(char kodeKamar) {
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;
+<<<<<<< HEAD
     file1 << "\nWaktu Tanggal Check-in : " << ctime(&currentTime_t);
     //file1 << "Tanggal Check-In (dd/mm/yyyy) : " << data.tanggalCheckIn.tanggal << "/" << data.tanggalCheckIn.bulan << "/" << data.tanggalCheckIn.tahun << endl;
+=======
+    file1 << "Tanggal Check-In (dd/mm/yyyy) : " << data.tanggalCheckIn.tanggal << "/" << data.tanggalCheckIn.bulan << "/" << data.tanggalCheckIn.tahun << endl;
+>>>>>>> e1c2c19c058a057543a717bc8ab183a98ced9f44
     file1 << "NIK  : " << data.NIK << endl;
     file1 << "Harga Kamar : " << "Rp. " << harga * data.jumlahKamar * 3 / 2 + 150000 * data.bed << ",00" << endl;
     file1 << "Nomor Kamar : ";
@@ -377,15 +399,30 @@ int main() {
 
     else if (kegiatan == "quit") {
         cout << "Terima kasih, sampai jumpa!" << endl;
+<<<<<<< HEAD
         ulng = 'n';
+=======
+        ulang = 0;
+>>>>>>> e1c2c19c058a057543a717bc8ab183a98ced9f44
     } 
 
     else {
         cout << "Kegiatan Anda Tidak Terdaftar dalam Sistem. Mohon Input Ulang!\n";
         getchar();
+<<<<<<< HEAD
     }
     }
 
     return 0;
 }
 }
+=======
+        ulang = 1;
+    }
+    }
+    while (ulang != 0);
+
+    return 0;
+}
+}
+>>>>>>> e1c2c19c058a057543a717bc8ab183a98ced9f44

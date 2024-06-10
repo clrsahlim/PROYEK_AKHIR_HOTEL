@@ -1,17 +1,1 @@
 REGULER ROOM CHECK-IN DATA : :
-Nama : cd "c:\Users\User\AP_MATKUL\" ; if ($?) { g++ TugasAkhirLabHotel.cpp -o TugasAkhirLabHotel } ; if ($?) { .\TugasAkhirLabHotel }
-Tanggal Check-In (dd/mm/yyyy) : 0/7497068/8
-NIK : 134259668768
--------------------------------------
-Nama : cd "c:\Users\User\AP_MATKUL\" ; if ($?) { g++ TugasAkhirLabHotel.cpp -o TugasAkhirLabHotel } ; if ($?) { .\TugasAkhirLabHotel }
-Tanggal Check-In (dd/mm/yyyy) : 0/7497068/8
-NIK : 868755700304
--------------------------------------
-Nama : clar
-Tanggal Check-In (dd/mm/yyyy) : 1/20/2005
-NIK : 231401020
--------------------------------------
-Nama : clar
-Tanggal Check-In (dd/mm/yyyy) : 23/23/233
-NIK : 231401020
--------------------------------------

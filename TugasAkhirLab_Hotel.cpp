@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <cstring>
+#include <string>
 #include <cctype>
 #include <vector>
 
@@ -76,7 +76,6 @@ void CetakKeteranganKamar(char kodeKamar) {
     file.close();
 }
 
-
 void PilihKolamRenang() {
     system("cls");
     vector<FasilitasKolamRenang> fasilitas = {
@@ -87,31 +86,40 @@ void PilihKolamRenang() {
 
     cout << "Pilih fasilitas kolam renang:\n";
     for (size_t i = 0; i < fasilitas.size(); ++i) {
-        cout << i + 1 << ". " << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam";
-        cout << endl;
+        cout << i + 1 << ". " << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam\n";
     }
 
-    int pilihan;
+    int pilihan, jumlah_orang;
+    float jam; 
     cout << "Masukkan pilihan Anda (1-" << fasilitas.size() << "): ";
     cin >> pilihan;
 
-    if (pilihan >= 1 && pilihan <= static_cast<int>(fasilitas.size())) {
-        float jam;
-        cout << "Masukkan jumlah jam penggunaan: ";
-        cin >> jam;
+    cout << "Masukkan jumlah orang: ";
+    cin >> jumlah_orang; 
 
-        int totalHargaKolam = fasilitas[pilihan - 1].hargaPerJam * jam;
+    cout << "Masukkan total jam yang diinginkan: ";
+    cin >> jam; 
+
+    if (pilihan >= 1 && pilihan <= fasilitas.size()) {
+        int totalHargaKolam = fasilitas[pilihan - 1].hargaPerJam * jam * jumlah_orang;
 
         bool inginPelampung = false;
         int totalHargaPelampung = 0;
+
+cout<<endl; 
+    cout<<"Harga extra perlengkapan berenang\n"; 
+    cout<<"1. Pelampung Reguler      = Rp. 15.000"<<endl; 
+    cout<<"2. Pelampung Anak         = Rp. 10.000"<<endl; 
+    cout<<"3. Pelampung (khusus VIP) = Rp. 20.000"<<endl; 
 
         if (fasilitas[pilihan - 1].hasPelampung) {
             char pelampungPilihan;
             cout << "Apakah Anda ingin menggunakan pelampung? (y/n): ";
             cin >> pelampungPilihan;
-            if (tolower(pelampungPilihan) == 'y') {
-                inginPelampung = true;
-                totalHargaPelampung = fasilitas[pilihan - 1].hargaPelampung;
+            inginPelampung = (tolower(pelampungPilihan) == 'y') ? true : false;
+
+            if (inginPelampung) {
+                totalHargaPelampung = fasilitas[pilihan - 1].hargaPelampung * jumlah_orang;
             }
         }
 
@@ -120,6 +128,7 @@ void PilihKolamRenang() {
         ofstream file("kolamrenang.txt", ios::app);
         file << "Fasilitas Kolam Renang: " << fasilitas[pilihan - 1].nama << "\n";
         file << "Jumlah Jam: " << jam << "\n";
+        file << "Jumlah Orang: " << jumlah_orang << "\n";
         file << "Biaya Kolam Renang: Rp. " << totalHargaKolam << "\n";
         if (inginPelampung) {
             file << "Menggunakan Pelampung: Ya\n";
@@ -129,19 +138,7 @@ void PilihKolamRenang() {
         file << "-------------------------------------\n";
         file.close();
 
-        cout << "Anda telah memilih " << fasilitas[pilihan - 1].nama << " untuk " << jam << " jam dengan total harga Rp. " << totalHargaKolam << ".\n";
-
-//list untuk harga pelampung tambahan jika pemesanan kolam renang 
-    cout<<endl; 
-    cout<<"Harga extra perlengkapan berenang\n"; 
-    cout<<"1. Pelampung Reguler      = Rp. 15.000"<<endl; 
-    cout<<"2. Pelampung Anak         = Rp. 10.000"<<endl; 
-    cout<<"3. Pelampung (khusus VIP) = Rp. 20.000"<<endl; 
-
-        if (inginPelampung) {
-            cout << "Anda juga menggunakan pelampung dengan biaya tambahan Rp. " << totalHargaPelampung << ".\n";
-        }
-        cout << "Total biaya keseluruhan adalah Rp. " << totalHarga << ".\n";
+        cout << "Anda telah memilih " << fasilitas[pilihan - 1].nama << " untuk " << jam << " jam dengan total harga Rp. " << totalHarga << ".\n";
     } else {
         cout << "Pilihan tidak valid.\n";
     }

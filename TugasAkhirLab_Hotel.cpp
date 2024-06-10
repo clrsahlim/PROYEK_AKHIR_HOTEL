@@ -4,8 +4,6 @@
 #include <string>
 #include <cctype>
 #include <vector>
-#include <chrono>
-#include <ctime>
 
 using namespace std;
 
@@ -73,11 +71,6 @@ private:
     vector<MenuItem> items;
 };
 
-auto currentTime = chrono::system_clock::now();
-    
-    // convert waktu jdi time_t
-    time_t currentTime_t = chrono::system_clock::to_time_t(currentTime);
-
 void CustomerServiceInput() {
     ifstream file("CustomerService_Data.txt");
     string nomorCS, nomorCSReal, namaCS;
@@ -108,14 +101,15 @@ void CetakKeteranganKamar(char kodeKamar) {
     if (tolower(kodeKamar) == 'd')
         fileData_Kamar = "Deluxe_F_R.txt";
     else if (tolower(kodeKamar) == 's')
-        fileData_Kamar = "Superior_F_R.txt";
+        fileData_Kamar = "Superior_F_R copy.txt";
     else if (tolower(kodeKamar) == 'r')
-        fileData_Kamar = "Reguler_F_R.txt";
+        fileData_Kamar = "Reguler_F_R copy.txt";
     else {
         cout << "Maaf kode kamar Anda tidak terdaftar" << endl;
         return;
     }
 
+    system ("cls");
     ifstream file(fileData_Kamar);
     if (file) {
         stringstream buffer;
@@ -261,21 +255,6 @@ void CheckIn(char kodeKamar) {
             room.availability -= 1;
         }
         }
-        }
-    }
-
-    cout << "Jika Pembayaran Sudah Berhasil, tekan Enter ";
-    getline(cin, jawaban);
-    getchar();
-
-    if (jawaban.empty()) {
-        cout << "Nomor Kamar Anda : ";
-        for (i = data.jumlahKamar-1 ; i >= 0 ; i--)
-        cout << nomorKamar [i] << " ";
-        cout << "\nSelamat Menikmati!";
-    }
-    else {
-        cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
     }
 
     cout << "Jika Pembayaran Sudah Berhasil, tekan Enter ";
@@ -302,8 +281,6 @@ void CheckIn(char kodeKamar) {
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;
-    file1 << "\nWaktu Tanggal Check-in : " << ctime(&currentTime_t);
-    //file1 << "Tanggal Check-In (dd/mm/yyyy) : " << data.tanggalCheckIn.tanggal << "/" << data.tanggalCheckIn.bulan << "/" << data.tanggalCheckIn.tahun << endl;
     file1 << "Tanggal Check-In (dd/mm/yyyy) : " << data.tanggalCheckIn.tanggal << "/" << data.tanggalCheckIn.bulan << "/" << data.tanggalCheckIn.tahun << endl;
     file1 << "NIK  : " << data.NIK << endl;
     file1 << "Harga Kamar : " << "Rp. " << harga * data.jumlahKamar * 3 / 2 + 150000 * data.bed << ",00" << endl;
@@ -319,7 +296,7 @@ void CheckKamar(const string &namaFile)
 {
     ifstream file("check_Kamar.txt");
     vector<Room> rooms;
-    string tipeKamar;
+    string tipeKamar; 
     int availability;
 
     while (getline(file, tipeKamar) && file >> availability)
@@ -345,30 +322,54 @@ void CheckKamar(const string &namaFile)
     cout << "=*=Push Any Button to Continue=*=";
 }
 
-void  check_out(){
-
+void spasiInterface (int n){
+    if (n==1){
+        for (int i = 1; i <= 5 ; i++) 
+        cout << "\n";
+    }
+    else if (n == 2){
+        for (int i = 1; i <= 53
+         ; i++)
+        cout << " ";
+    }   
 }
 
-//Badan pemrograman utama
+void Tutup () {
+    cout << "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@| --------------------------- |@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@\n";
+}
+
+
 int main() {
     system("cls");
     char kodeKamar;
     string kegiatan;
     Menu menu;
 
+
     menu.addItem({"Nasi Goreng", 25000});
     menu.addItem({"Mie Goreng", 20000});
     menu.addItem({"Ayam Goreng", 30000});
     menu.addItem({"Es Teh", 5000});
     menu.addItem({"Es Jeruk", 7000});
+
     while (ulang=='y')
     {
-    CustomerServiceInput();
-    getchar();
+        spasiInterface (1);
+        Tutup ();
+        cout << "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@|  Welcome to CodeGank Hotel  |@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@\n";
+        Tutup ();
+        spasiInterface (1);
+        spasiInterface (2);
+        cout << "Press Any Button\n\n";
+        getchar ();
+        
+
+        CustomerServiceInput();
+        getchar();
 
         while (ulng=='y')
         {
-    cout << "Input Kegiatan [Check In, Check Out, Check Room, Swim, Extra menu food and drink, or Quit] : ";
+    cout << "Input Kegiatan [Check In, Check Room, Swim, Extra menu food and drink, or Quit] : ";
     getline(cin, kegiatan);
 
     for (char &c : kegiatan) {
@@ -393,19 +394,12 @@ int main() {
 
     else if (kegiatan == "quit") {
         cout << "Terima kasih, sampai jumpa!" << endl;
-        ulng = 'n';
         ulang = 0;
     } 
 
     else {
         cout << "Kegiatan Anda Tidak Terdaftar dalam Sistem. Mohon Input Ulang!\n";
         getchar();
-    }
-    }
-
-    return 0;
-}
-}
         ulang = 1;
     }
     }

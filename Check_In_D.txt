@@ -4,3 +4,8 @@ Nama : Michael
 Tanggal Check-In (dd/mm/yyyy) : 12/4/2002
 NIK  : 123456789908765432
 Harga Kamar : 700000-------------------------------------
+Nama : cl
+Tanggal Check-In (dd/mm/yyyy) : 23/23/2
+NIK  : 231
+Harga Kamar : Rp. 2400000,00
+Nomor Kamar : 109 110 

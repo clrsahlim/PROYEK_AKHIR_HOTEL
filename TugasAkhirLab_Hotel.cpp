@@ -276,7 +276,7 @@ void CheckIn(char kodeKamar) {
         outFile << room.tipe << endl;
         outFile << room.availability << endl;
     }
-    outFile.close();
+    outFile.close(); 
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;

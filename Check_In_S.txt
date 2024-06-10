@@ -1,1 +1,9 @@
 SUPERIOR CHECK-IN DATA :
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/3/20000
+NIK  : 23567809876543
+Harga Kamar : 600000-------------------------------------
+Nama : Susan
+Tanggal Check-In (dd/mm/yyyy) : 12/4/2005
+NIK  : 2134787987654322
+Harga Kamar : 600000-------------------------------------

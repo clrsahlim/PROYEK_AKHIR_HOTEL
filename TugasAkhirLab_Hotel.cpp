@@ -7,34 +7,30 @@
 
 using namespace std;
 
-struct dataTanggal
-{
+struct dataTanggal {
     int tanggal, bulan, tahun;
 };
 
-struct dataCheckIn
-{
+struct dataCheckIn {
     string nama, tipe, CS, responsibility;
     long long NIK;
     int NomorKamar, bed, jumlahKamar;
     dataTanggal tanggalCheckIn;
 };
 
-struct Room
-{
+struct Room {
     string tipe;
     int availability;
 };
 
-struct SwimmingPool
-{
-    string tipe;
-    float durasi; // in hours
-    long long biaya;
+struct FasilitasKolamRenang {
+    string nama;
+    int hargaPerJam;
+    bool hasPelampung;
+    int hargaPelampung;
 };
 
-void CustomerServiceInput()
-{
+void CustomerServiceInput() {
     ifstream file("CustomerService_Data.txt");
     string nomorCS, nomorCSReal, namaCS;
 
@@ -42,87 +38,102 @@ void CustomerServiceInput()
     cin >> nomorCS;
 
     bool found = false;
-    while (file >> nomorCSReal >> namaCS)
-    {
-        if (nomorCSReal == nomorCS)
-        {
+    while (file >> nomorCSReal >> namaCS) {
+        if (nomorCSReal == nomorCS) {
             system("cls");
-            cout << "Nama : " << namaCS << "\nKode : " << nomorCSReal << endl
-                 << endl;
+            cout << "Nama : " << namaCS << "\nKode : " << nomorCSReal << endl << endl;
             found = true;
             break;
         }
     }
-    if (!found)
-    {
-        cout << "Nomor Customer Service Anda tidak terdaftar";
+    if (!found) {
+        cout << "Nomor Customer Service Anda tidak terdaftar" << endl;
     }
     file.close();
 }
 
-void CetakKeteranganKamar(char kodeKamar)
-{
-    string kamar, fileData_Kamar;
-    ifstream file;
+void CetakKeteranganKamar(char kodeKamar) {
+    string fileData_Kamar;
     if (tolower(kodeKamar) == 'd')
         fileData_Kamar = "Deluxe_F_R.txt";
     else if (tolower(kodeKamar) == 's')
-        fileData_Kamar = "Superior_F_R copy.txt";
+        fileData_Kamar = "Superior_F_R.txt";
     else if (tolower(kodeKamar) == 'r')
-        fileData_Kamar = "Reguler_F_R copy.txt";
-    else
-        cout << "Maaf kode kamar Anda tidak terdaftar";
+        fileData_Kamar = "Reguler_F_R.txt";
+    else {
+        cout << "Maaf kode kamar Anda tidak terdaftar" << endl;
+        return;
+    }
 
-    file.open(fileData_Kamar);
-    stringstream buffer;
-    buffer << file.rdbuf();
-    string fileContents = buffer.str();
-
+    ifstream file(fileData_Kamar);
+    if (file) {
+        stringstream buffer;
+        buffer << file.rdbuf();
+        cout << buffer.str() << endl;
+    } else {
+        cout << "File kamar tidak ditemukan" << endl;
+    }
     file.close();
-    system("cls");
-    cout << fileContents << endl;
 }
 
-void PilihKolamRenang()
-{
-    struct FasilitasKolamRenang
-    {
-        string nama;
-        int hargaPerJam;
+void PilihKolamRenang() {
+    vector<FasilitasKolamRenang> fasilitas = {
+        {"Kolam Renang Reguler (Outdoor)", 85000, true, 15000},
+        {"Kolam Renang Anak (Outdoor)", 55000, true, 10000},
+        {"Kolam Renang VIP (Indoor)", 112000, true, 20000}
     };
 
-    vector<FasilitasKolamRenang> fasilitas = {
-        {"Kolam Renang Reguler(Outdoor)", 85000},
-        {"Kolam Renang Anak(Outdoor)", 55000},
-        {"Kolam Renang VIP (Indoor)", 112000}};
-
     cout << "Pilih fasilitas kolam renang:\n";
-    for (size_t i = 0; i < fasilitas.size(); ++i)
-    {
-        cout << i + 1 << ". " << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam\n";
+    for (size_t i = 0; i < fasilitas.size(); ++i) {
+        cout << i + 1 << "." << fasilitas[i].nama << " - Rp. " << fasilitas[i].hargaPerJam << "/jam";
+        if (fasilitas[i].hasPelampung) {
+            cout << " (Pelampung tersedia - Rp. " << fasilitas[i].hargaPelampung << ")";
+        }
+        cout << endl;
     }
 
     int pilihan;
     cout << "Masukkan pilihan Anda (1-" << fasilitas.size() << "): ";
     cin >> pilihan;
 
-    if (pilihan >= 1 && pilihan <= static_cast<int>(fasilitas.size()))
-    {
+    if (pilihan >= 1 && pilihan <= static_cast<int>(fasilitas.size())) {
         float jam;
         cout << "Masukkan jumlah jam penggunaan: ";
         cin >> jam;
 
-        int totalHarga = fasilitas[pilihan - 1].hargaPerJam * jam;
+        int totalHargaKolam = fasilitas[pilihan - 1].hargaPerJam * jam;
+        int totalHargaPelampung = 0;
+        bool inginPelampung = false;
+        if (fasilitas[pilihan - 1].hasPelampung) {
+            char pelampungPilihan;
+            cout << "Apakah Anda ingin menggunakan pelampung? (y/n): ";
+            cin >> pelampungPilihan;
+            if (tolower(pelampungPilihan) == 'y') {
+                inginPelampung = true;
+                totalHargaPelampung = fasilitas[pilihan - 1].hargaPelampung;
+            }
+        }
+
+        int totalHarga = totalHargaKolam + totalHargaPelampung;
+
         ofstream file("kolamrenang.txt", ios::app);
-        cout << "Anda telah memilih " << fasilitas[pilihan - 1].nama << " untuk " << jam << " jam dengan total harga Rp. " << totalHarga << ".\n";
         file << "Fasilitas Kolam Renang: " << fasilitas[pilihan - 1].nama << "\n";
         file << "Jumlah Jam: " << jam << "\n";
-        file << "Total Harga: Rp. " << totalHarga << "\n";
+        file << "Biaya Kolam Renang: Rp. " << totalHargaKolam << "\n";
+        if (inginPelampung) {
+            file << "Menggunakan Pelampung: Ya\n";
+            file << "Biaya Pelampung: Rp. " << totalHargaPelampung << "\n";
+        }
+        file << "Total Biaya: Rp. " << totalHarga << "\n";
         file << "-------------------------------------\n";
         file.close();
-    }
-    else
-    {
+
+        cout << "Anda telah memilih " << fasilitas[pilihan - 1].nama << " untuk " << jam << " jam dengan total harga Rp. " << totalHargaKolam << ".\n";
+        if (inginPelampung) {
+            cout << "Anda juga menggunakan pelampung dengan biaya tambahan Rp. " << totalHargaPelampung << ".\n";
+        }
+        cout << "Total biaya keseluruhan adalah Rp. " << totalHarga << ".\n";
+    } else {
         cout << "Pilihan tidak valid.\n";
     }
 }
@@ -187,9 +198,6 @@ void CheckIn(char kodeKamar)
     {
         cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
     }
-
- 
-
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;

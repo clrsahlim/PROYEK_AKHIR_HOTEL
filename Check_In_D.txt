@@ -1,5 +1,4 @@
-DELUXE ROOM CHECK-IN DATA :
-
+==========DELUXE ROOM CHECK-IN DATA :===================
 
 Nama : Michael 
 Tanggal Check-In (dd/mm/yyyy) : 12/4/2002

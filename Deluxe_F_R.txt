@@ -1,4 +1,4 @@
-DELUXE ROOM
+========DELUXE ROOM===========
 *Room Overview*
 Room Size : 45.0 m^2
 Bed Type : King bed
@@ -22,12 +22,14 @@ City view
 Breakfast for 2 people
 Free WiFi
 Free access to fitness center, sauna and spa
+Free access to swimming pool
 Non smoking rooms
 
 #Rules#
-Peraturan dalam hotel ini yang perlu diperhatikan yaitu : 
+Peraturan dalam hotel ini yang perlu diperhatikan yaitu: 
 1. Tidak boleh merokok di dalam kamar
 2. Menjaga kebersihan kamar dan kamar mandi
 3. Tidak diperbolehkan membuang pembalut dalam toilet
 4. Tidak boleh berteriak dan membuat keributan 
 5. Harus checkout sesuai waktu yang telah ditentukan
+6. Tidak boleh merusak semua fasilitas di hotel ini

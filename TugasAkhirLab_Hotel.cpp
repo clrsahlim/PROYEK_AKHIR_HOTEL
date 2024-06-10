@@ -90,7 +90,7 @@ void CustomerServiceInput() {
         }
     }
     if (!found) {
-        cout << "Nomor Customer Service Anda tidak terdaftar" << endl;
+        cout << "Nomor Customer Service Anda tidak terdaftar";
         exit (1);
     }
     file.close();
@@ -261,10 +261,10 @@ void CheckIn(char kodeKamar) {
     getchar();
 
     if (jawaban.empty()) {
-        cout << "\nNomor Kamar Anda : ";
+        cout << "Nomor Kamar Anda : ";
         for (i = data.jumlahKamar-1 ; i >= 0 ; i--)
         cout << nomorKamar [i] << " ";
-        cout << "\nSelamat Menikmati!\n\n";
+        cout << "\nSelamat Menikmati!";
     }
     else {
         cout << "Pembayaran belum selesai. Silakan selesaikan pembayaran terlebih dahulu." << endl;
@@ -276,7 +276,7 @@ void CheckIn(char kodeKamar) {
         outFile << room.tipe << endl;
         outFile << room.availability << endl;
     }
-    outFile.close(); 
+    outFile.close();
 
     ofstream file1(namaFile, ios::app);
     file1 << "Nama : " << data.nama << endl;
@@ -353,28 +353,28 @@ int main() {
         if (kodeKamar == 'd' || kodeKamar == 'r' || kodeKamar == 's') {
             CetakKeteranganKamar(kodeKamar);
             CheckIn(kodeKamar);
-        } else {
-            cout << "Kode Kamar tidak valid";
         }
-    } else if (kegiatan == "check room") {
-        CheckKamar("Check_Kamar.txt");
-    } else if (kegiatan == "swim") {
-        PilihKolamRenang();
-    } else if (kegiatan == "food and drink menu") {
-        menu.displayMenu();
-        int totalHarga = menu.selectItems();
-        cout << "Total harga untuk pesanan Anda adalah: Rp. " << totalHarga << endl;
-        ofstream file("pesanan_menu.txt", ios::app);
-        file << "Total Harga Pesanan: Rp. " << totalHarga << "\n";
-        file << "-------------------------------------\n";
-        file.close();
-    } else if (kegiatan == "quit") {
-        cout << "Terima kasih telah menggunakan layanan kami." << endl;ulng='n';
-        return 0;
-    } else {
-        cout << "Kegiatan tidak valid. Silakan coba lagi." << endl;
-    }        }
-        
+
+        else 
+        cout << "Kode Kamar tidak valid";
     }
+    
+    else if (kegiatan == "check room") 
+    CheckKamar("Check_Kamar.txt");
+
+    else if (kegiatan == "quit") {
+        cout << "Terima kasih, sampai jumpa!" << endl;
+        ulang = 0;
+    } 
+
+    else {
+        cout << "Kegiatan Anda Tidak Terdaftar dalam Sistem. Mohon Input Ulang!\n";
+        getchar();
+        ulang = 1;
+    }
+    }
+    while (ulang != 0);
+
     return 0;
+}
 }
